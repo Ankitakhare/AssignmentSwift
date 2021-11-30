@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple HTML page</title>
+    
+    <script>
+    /*
+       This function used to recive infoamrtion from web to native
+     */
+    function receiveDataFromSwift(newText) {
+        var incomingElement = document.getElementById("incoming");
+        incomingElement.innerText = newText;
+    }
+
+    /*
+       This method used to send information from web to native
+     */
+    function sendToNative(message){
+        var native = window.webkit.messageHandlers.nativeProcess
+        native.postMessage(message)
+    }
+
+    /*
+     This methos is button click action in webview
+     */
+    function sendMessage() {
+        var textElement = document.getElementById("outputTextField");
+        console.log(textElement.value);
+        sendToNative(textElement.value);
+        textElement.value = "";
+    }
+
+    </script>
+    
+    
+    <style>
+    body{
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif
+    }
+    .container{
+       text-align: center;
+    }
+    .input{
+        height: 20px;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: gray;
+        width: 13rem;
+        padding: 5px;
+    }
+    .button{
+        width: 50px;
+        height: 32px;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: gray;
+    }
+    </style>
+    
+</head>
+
+
+
+<body>
+    <div class="container">
+    <h2>Simple HTML Interaction </h2>
+    <p>Hello this is a simple Javascript based page. Values entered in text box will be reflected</p>
+    
+    <p id="incoming">Swift Message Here</p>
+    <hr/>
+    <h3> Native</h3>
+    <p>Value entered here will be sent back to phone</p>
+    <input id="outputTextField" placeholder="Enter to send" class="input"/>
+    <button class="button" onclick = "sendMessage()" >Send</button>
+</div>
+</body>
+</html>
